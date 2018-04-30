@@ -1,0 +1,72 @@
+﻿  stdafx.cpp
+  Task.cpp
+  Solver.cpp
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.h(11): warning C4305: инициализация: усечение из "int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.h(34): warning C4305: инициализация: усечение из "int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.cpp(33): warning C4244: return: преобразование "unsigned __int64" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.cpp(37): warning C4244: return: преобразование "int" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.cpp(41): warning C4244: return: преобразование "int" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.cpp(45): warning C4244: return: преобразование "int" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.cpp(85): warning C4244: return: преобразование "unsigned __int64" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.cpp(140): warning C4305: инициализация: усечение из "int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.cpp(206): warning C4244: =: преобразование "clock_t" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.cpp(219): warning C4305: инициализация: усечение из "int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.cpp(223): warning C4305: инициализация: усечение из "unsigned int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.cpp(398): warning C4101: k: неиспользованная локальная переменная
+  Resource.cpp
+c:\users\1\desktop\researchtaskbranch\researchtask\resource.cpp(146): warning C4305: =: усечение из "unsigned int" в "float"
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\utility(188): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  c:\users\1\desktop\researchtaskbranch\researchtask\resource.cpp(94): note: выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<float,float>::pair<float,double,void,0>(_Other1 &&,_Other2 &&) noexcept"
+          with
+          [
+              _Other1=float,
+              _Other2=double
+          ]
+  c:\users\1\desktop\researchtaskbranch\researchtask\resource.cpp(94): note: выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<float,float>::pair<float,double,void,0>(_Other1 &&,_Other2 &&) noexcept"
+          with
+          [
+              _Other1=float,
+              _Other2=double
+          ]
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\utility(188): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+  c:\users\1\desktop\researchtaskbranch\researchtask\resource.cpp(178): note: выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<float,float>::pair<int,double,void,0>(_Other1 &&,_Other2 &&) noexcept"
+          with
+          [
+              _Other1=int,
+              _Other2=double
+          ]
+  c:\users\1\desktop\researchtaskbranch\researchtask\resource.cpp(178): note: выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<float,float>::pair<int,double,void,0>(_Other1 &&,_Other2 &&) noexcept"
+          with
+          [
+              _Other1=int,
+              _Other2=double
+          ]
+  ResearchTask.cpp
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.h(11): warning C4305: инициализация: усечение из "int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\solver.h(34): warning C4305: инициализация: усечение из "int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\researchtask.cpp(44): warning C4101: length_of_arg: неиспользованная локальная переменная
+c:\users\1\desktop\researchtaskbranch\researchtask\researchtask.cpp(42): warning C4101: filesize: неиспользованная локальная переменная
+c:\users\1\desktop\researchtaskbranch\researchtask\researchtask.cpp(192): warning C4305: инициализация: усечение из "int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\researchtask.cpp(207): warning C4305: инициализация: усечение из "int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\researchtask.cpp(210): warning C4305: инициализация: усечение из "int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\researchtask.cpp(253): warning C4305: инициализация: усечение из "int" в "float"
+  Problem.cpp
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(64): warning C4244: =: преобразование "const float" в "int", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(65): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(66): warning C4244: аргумент: преобразование "unsigned int" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(72): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(73): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(74): warning C4244: аргумент: преобразование "unsigned int" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(99): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(101): warning C4244: аргумент: преобразование "unsigned int" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(110): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(111): warning C4244: аргумент: преобразование "unsigned int" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(239): warning C4244: аргумент: преобразование "unsigned __int64" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(240): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(241): warning C4244: аргумент: преобразование "unsigned __int64" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(242): warning C4244: аргумент: преобразование "unsigned __int64" в "float", возможна потеря данных
+c:\users\1\desktop\researchtaskbranch\researchtask\problem.cpp(255): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  Heuristics.h
+  Assignment.cpp
+  Создание кода...
+  ResearchTask.vcxproj -> C:\Users\1\Desktop\ResearchTaskBranch\x64\Debug\ResearchTask.exe

@@ -1,0 +1,15 @@
+﻿  ResearchTask.cpp
+c:\users\1\desktop\researchtaskbranch\researchtask\Task.h(112): warning C4305: инициализация: усечение из "int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\Solver.h(15): warning C4305: инициализация: усечение из "int" в "float"
+c:\users\1\desktop\researchtaskbranch\researchtask\Solver.h(50): warning C4305: инициализация: усечение из "int" в "float"
+ResearchTask.cpp(80): warning C4101: length_of_arg: неиспользованная локальная переменная
+ResearchTask.cpp(78): warning C4101: filesize: неиспользованная локальная переменная
+ResearchTask.cpp(157): warning C4305: инициализация: усечение из "int" в "float"
+ResearchTask.cpp(210): warning C4101: ch: неиспользованная локальная переменная
+x64\Release\Heuristics.obj : warning LNK4042: объект указан более одного раза; лишние не учитываются
+  Создание кода
+  4 of 2345 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  ResearchTask.vcxproj -> C:\Users\1\Desktop\ResearchTaskBranch\x64\Release\ResearchTask.exe
