@@ -92,7 +92,7 @@ float ExactSolver::solve() {
 				solution.second = m.second;
 				//makespan = std::min(makespan, solution.second);
 
-			}
+            }
 		}
 		return makespan;
 	}

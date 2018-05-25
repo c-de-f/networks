@@ -92,5 +92,15 @@ float CompHeurSolver::solve()
 	}
 
 	p->cpu_time = (clock() - tStart);
+
+
+    if ((p->makespan()) < solution.second)
+    {
+        solution.first = p->tasks;
+        solution.second = p->makespan();
+        //makespan = std::min(makespan, solution.second);
+
+    }
+
 	return p->makespan();
 }

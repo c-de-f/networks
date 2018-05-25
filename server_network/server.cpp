@@ -2,6 +2,7 @@
 #include "QtWebSockets/qwebsocketserver.h"
 #include "QtWebSockets/qwebsocket.h"
 #include <QtCore/QDebug>
+#include <string.h>
 
 QT_USE_NAMESPACE
 
@@ -39,16 +40,28 @@ void EchoServer::onNewConnection()
 
 void EchoServer::processTextMessage(QString message)
 {
-   // exit(0);
+  //  qDebug() << "msg equals " << message << '\n';
+   //exit(0);
     QWebSocket *pClient = qobject_cast<QWebSocket *>(sender());
-    if (m_debug)
+   // exit(0);
+
         qDebug() << "Message received:" << message;
-    std::string msg = message.toUtf8().constData();
-    Problem* p = new Problem(msg, 0);
-    MixedSolver s(p, NULL, 4, 2);
-    s.solve();
-    std::string res = "Makespan: " + std::to_string(s.solution.second) + "\n";
-    for (auto &i : s.solution.first) res += std::to_string(i.second.start()) + ' ';
+ //   exit(0);
+    std::string m = message.toUtf8().constData();
+    Problem* p = new Problem(m, 0);
+    Solver* s = NULL;
+    int sz = p->tasks.size();
+    qDebug() << sz << '\n';
+     pClient->sendTextMessage(QString::fromUtf8((std::to_string(sz) + " tasks received").c_str()));
+    Heuristics* h = new SimpleHeuristics(2);
+    /*if (sz < 5) {qDebug() << "1\n"; s = new ExactSolver(p, h); }
+    else if (sz < 7) {qDebug() << "2\n"; s = new MixedSolver(p, h, 3, 2);}
+    else if (sz < 30) {qDebug() << "3\n"; s = new MixedSolver(p, h, 1, 2);}
+    else*/ {/*qDebug() << "4\n";*/ s = new HeurSolver(p, h);}
+    float sol = s->solve();
+    qDebug() << sol << s->solution.second << '\n';
+    std::string res = "Makespan: " + std::to_string(s->solution.second) + "\n";
+    for (auto &i : s->solution.first) res += std::to_string(i.second.start()) + ' ';
     res+='\n';
     if (pClient) {
 

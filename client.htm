@@ -1,9 +1,17 @@
 <html>
     <head>
-        <title>WebSocket Echo Client</title>
+        <title>Задача построения расписания</title>
     </head>
     <body>
-        <h1>WebSocket Echo Client</h1>
+        <h1>Задача построения расписания</h1>
+        <p> 
+        <a href = "#" style = "color : blue; text-decoration : underline" onclick = "displayControl('debugger'); return false">Подключиться к серверу</a>
+        <a href = "#" style = "color : blue; text-decoration : underline" onclick = "displayControl('welcome'); return false">Помощь</a>
+        <a href = "#" style = "color : blue; text-decoration : underline" onclick = "displayControl('numbers'); return false">Ввести данные таблицей</a>
+        <a href = "#" style = "color : blue; text-decoration : underline" onclick = "displayControl('inputText'); return false">Ввести данные текстом</a>
+       <!-- <a href = "#" style = "color : blue; text-decoration : underline" onclick = "displayControl('fileinput'); return false">Ввести данные файлом</a> -->
+        </p>
+        <div id = "debugger" style = "display : none">
         <p>
             <button onClick="initWebSocket();">Connect</button>
             <button onClick="stopWebSocket();">Disconnect</button>
@@ -12,19 +20,109 @@
         <p>
             <textarea id="debugTextArea" style="width:400px;height:200px;"></textarea>
         </p>
-        <p>
-        <textarea id="inputText" style="width:400px;height:200px;"></textarea>
-            <button onClick="sendMessage();">Send</button>
+        </div>
+        <div id = "welcome" style = "display : block"> 
+        <h1>Постановка задачи</h1>
+<p>На вход алгоритму подается набор n заданий, для которых требуется оставить расписание. На задания наложено два вида ограничений. Во-первых, ограничение предшествования типа «финиш-старт»: задание j не может начать выполняться, пока не закончат выполняться все его непосредственные предшественники. Во-вторых, задания выполняются на ресурсах, количество которых ограничено.</p>
+<p>Пусть дано K типов ресурсов. Для выполнения задания j требуется r<sub>j,k</sub> единиц ресурса типа k в единицу времени, задание обрабатывается p<sub>j</sub> единиц времени. Всего в каждый момент времени доступно R<sub>k</sub> единиц ресурса k. Цель задачи – с учетом ограничений предшествования и ресурсных ограничений составить расписание, при котором все задания были бы выполнены за наименьший период времени.</p>
+<br>
+
+<h1>Формат входных данных</h1>
+<p>Наиболее прост в использовании формат данных Patterson dataset:</p><br><b><i>
+<p>число_задач(t) число_ресурсов(n)</p>
+<p>мощность_ресурса[0] ... мощность_ресурса[n - 1]</p>
+<p>продолжительность[0] потребление_ресурса_0[0] ... потребление_ресурса_(n-1)[0] число_преемников[0] преемник[0] ... преемник[число_преемников[0] - 1]</p>
+<p>...</p>
+<p>родолжительность[t-1] потребление_ресурса_0[t-1] ... потребление_ресурса_(n-1)[0] число_преемников[t-1] преемник[0] ... преемник[число_преемников[t-1] - 1]</p>
+</i></b>
+        </div>
+
+        <p id="inputText" style = "display : none">
+        <textarea id="inputText1" style="width:400px;height:200px;"></textarea>
+            <button onClick="sendMessage();" >Отправить</button>
         </p>
-        <form name = "fileinput">
+
+         <div id = "numbers" style = "display:none">Число задач: <input type = "text" id = "tasks_num"/> Число ресурсов: <input type = "text" id = "src_num"/>
+        <button onClick="generateButtons();">Больше полей</button>
+         
+         <div id = "morenumbers"></div>
+         </div>
+      <!--  <form name = "fileinput" id = "fileinput" style = "display:none" > 
         <input type = "file" id = "inputFile"/>
         <button onClick = "sendFile()">Send file</button>
-        </form>
+        </form> -->
+        
+        <div id = "results" style = "display : none"> 
+        <textarea id = "res" style = "width:400px;height:200px;"></textarea>
+        </div>
 
         <script type="text/javascript">
             var debugTextArea = document.getElementById("debugTextArea");
 
             
+            function generateButtons()
+            {
+                t_num = document.getElementById("tasks_num").value;
+                res_num = document.getElementById("src_num").value;
+                a = Number(res_num);
+                //alert(t_num + ' ' + res_num);
+                contents = "<p>Мощность ресурсов:</p><div>";
+                for (var i = 0; i < a; i++) 
+                    {
+                        contents += "<input type = \"text\" id = \"src"+String(i)+"\"/>"; 
+                    }
+                contents +="</div><table><tr><th>-</th><th>Длительность:</th>";
+                for (var i = 0; i < a; i++) {
+                    contents += "<th>Потребление ресурса " +String(i) + "</th>";
+                }
+                contents += "<th>Число преемников</th><th>Преемники через пробел</th></tr>";
+                cell_num = Number(3) + Number(res_num);
+                //alert(cell_num);
+                for (var i = 0; i < Number(t_num); i++) 
+                {
+                    contents += "<tr><th>Задача " + String(i) + "</th>";
+                    for (var j = 0; j < cell_num; j++) {contents += "<td><input type = \"text\" id = \"task_ind"+String(i)+ ' ' + String(j) + "\"/></td>";}
+                    contents +="</tr>";
+                }
+                contents += "</table><button onClick = \"collectMsg();\">Отправить</button>"
+                //alert(contents);
+               // alert("here");
+                //document.getElementById("numbers").innerHTML -= "<button onClick=\"generateButtons(tsknum, srcnum);\">Больше полей</button>"
+                document.getElementById("morenumbers").innerHTML = contents;
+            }
+
+            function collectMsg()
+            {
+                t_num = document.getElementById("tasks_num").value;
+                res_num = document.getElementById("src_num").value;
+                var message = t_num + ' ' + res_num + '\n';
+               // debug(message);
+                for (i = 0; i < Number(res_num); i++) message += document.getElementById("src" + String(i)).value + ' ';
+                message = message + '\n';
+                //debug(message);
+                cell_num = Number(3) + Number(res_num);
+                //alert(cell_num);
+                for (i = 0; i < Number(t_num); i++)
+                    {for (j = 0; j < cell_num; j++)
+                        {
+                        d = document.getElementById("task_ind" + String(i) + ' ' + String(j)).value;
+                        //alert(d);
+                        message +=  d + ' ';
+                       /* if (d == '') 
+                        {
+                            alert("here");
+                            message += "0 ";
+                        }*/
+                   
+                  //  debug(message);
+                        }
+                         message = message + '\n';
+                    }
+                alert(message);
+                if ( websocket != null ) websocket.send( message );
+               // alert("Sent");
+            }
+
             function sendFile()
             {
                // debug("Whatever");
@@ -50,8 +148,8 @@
             }
 
             function sendMessage() {
-                var msg = document.getElementById("inputText").value;
-              
+                var msg = document.getElementById("inputText1").value;
+                alert(msg);
                 if ( websocket != null )
                 {
                    // document.getElementById("inputText").value = "";
@@ -79,8 +177,11 @@
                         debug("DISCONNECTED");
                     };
                     websocket.onmessage = function (evt) {
+                     
                         console.log( "Message received :", evt.data );
                         debug( evt.data );
+                        document.getElementById("res").innerHTML = evt.data;
+                        document.getElementById("results").style.display = "block";
                     };
                     websocket.onerror = function (evt) {
                         debug('ERROR: ' + evt.data);
@@ -145,6 +246,25 @@
                 }
                 reader.readAsArrayBuffer(fl);
             } */
+
+            function displayControl(id)
+            {
+                var array = ["numbers", "inputText", /*"fileinput",*/ "debugger", "welcome"];
+                if (document.getElementById(id).style.display == "none") 
+                    {
+                        for (i = 0; i < 4; i++)
+                        {
+                           // alert(array[i]);
+                            if (array[i] != id) {document.getElementById(array[i]).style.display = "none";}
+                           // alert(array[i]);
+                        }
+                        document.getElementById(id).style.display = "block";
+
+                    }
+                //else document.getElementById(id).style.display = "none";
+                
+               
+            }
         </script>
     </body>
 </html>

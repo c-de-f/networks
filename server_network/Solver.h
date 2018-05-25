@@ -24,6 +24,7 @@ public:
 	//void optSolve();
 	std::pair<std::map<std::string, Task>, float> solution;
 
+
 	bool haveActiveTasks();
 	std::map<Task *, bool> active;
 	std::map<Task*, TaskStatus> statuses;
