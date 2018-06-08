@@ -1,0 +1,17 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\server.o
+./release\Assignment.o
+./release\CompHeurSolver.o
+./release\ExactSolver.o
+./release\Heuristics.o
+./release\MixedSolver.o
+./release\Problem.o
+./release\Resource.o
+./release\Solver.o
+./release\stdafx.o
+./release\Task.o
+./release\moc_mainwindow.o
+./release\moc_server.o
+);

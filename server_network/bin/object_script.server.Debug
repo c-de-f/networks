@@ -1,0 +1,17 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\server.o
+./debug\Assignment.o
+./debug\CompHeurSolver.o
+./debug\ExactSolver.o
+./debug\Heuristics.o
+./debug\MixedSolver.o
+./debug\Problem.o
+./debug\Resource.o
+./debug\Solver.o
+./debug\stdafx.o
+./debug\Task.o
+./debug\moc_mainwindow.o
+./debug\moc_server.o
+);
