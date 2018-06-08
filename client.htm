@@ -28,12 +28,31 @@
 <br>
 
 <h1>Формат входных данных</h1>
-<p>Наиболее прост в использовании формат данных Patterson dataset:</p><br><b><i>
-<p>число_задач(t) число_ресурсов(n)</p>
-<p>мощность_ресурса[0] ... мощность_ресурса[n - 1]</p>
-<p>продолжительность[0] потребление_ресурса_0[0] ... потребление_ресурса_(n-1)[0] число_преемников[0] преемник[0] ... преемник[число_преемников[0] - 1]</p>
-<p>...</p>
-<p>родолжительность[t-1] потребление_ресурса_0[t-1] ... потребление_ресурса_(n-1)[0] число_преемников[t-1] преемник[0] ... преемник[число_преемников[t-1] - 1]</p>
+<p>Наиболее прост в использовании следующий формат ввода:</p><b><i><br>
+PROBLEM название
+<br><br>
+TASKS<br>
+название_задачи[0] продолжительность[0]<br>
+...<br>
+название_задачи[число_задач - 1] продолжительность[число_задач - 1]<br>
+END_TASKS
+<br><br>
+LINKS<br>
+задача_предшественник задача_преемник<br>
+...<br>
+END_LINKS
+<br><br>
+RESOURCES<br>
+название_ресурса[0] мощность_ресурса[0]<br>
+...<br>
+название_ресурса[число_ресурсов - 1] мощность_ресурса[число_ресурсов - 1]<br>
+END_RESOURCES
+<br><br>
+ASSIGNMENTS<br>
+название_ресурса название_задачи число_единиц<br>
+END_ASSIGNMENTS
+<br><br>
+END_PROBLEM
 </i></b>
         </div>
 
@@ -42,11 +61,57 @@
             <button onClick="sendMessage();" >Отправить</button>
         </p>
 
-         <div id = "numbers" style = "display:none">Число задач: <input type = "text" id = "tasks_num"/> Число ресурсов: <input type = "text" id = "src_num"/>
+         <div id = "numbers" style = "display:none">
+
+        <p style = "display:none">
+        <button onClick = "document.getElementById('patterson').style.display = 'block';document.getElementById('simple_parser').style.display = 'none';">Парсер Паттерсона</button> 
+        <button onClick = "document.getElementById('patterson').style.display = 'none';document.getElementById('simple_parser').style.display = 'block';">Парсер попроще</button> </p>
+
+        <div id = "simple_parser" > 
+                <p>Название проекта: <input type = "text" id = "problem_name"/> </p>
+                <div>
+                <p> Введите названия и продолжительность задач:</p>
+                <div id = "tasks"> 
+                </div>
+                <button onClick = "addTask();">Больше задач</button>
+                </div>
+
+                <div>
+                <p> Введите задачу-предшественник и задачу-преемник:</p>
+                <div id = "links"> 
+                </div>
+                <button onClick = "addLink();">Больше связей</button>
+                </div>
+
+                <div>
+                <p>Введите название ресурса и его мощность:</p>
+                <div id = "srcs"> 
+                </div>
+                <button onClick = "addSrc();">Больше ресурсов</button>
+                </div>
+
+                <div>
+                <p>Введите имя ресурса, имя задачи и число единиц:</p>
+                <div id = "asses"> 
+                </div>
+                <button onClick = "addAss();">Больше потребления</button>
+                </div>
+
+
+                <button onClick="sendSimple()">Отправить!</button>           
+
+
+        </div>
+
+
+        <!--<div id = "patterson" style = "display:none">
+         Число задач: <input type = "text" id = "tasks_num"/> Число ресурсов: <input type = "text" id = "src_num"/>
         <button onClick="generateButtons();">Больше полей</button>
          
          <div id = "morenumbers"></div>
          </div>
+         </div> -->
+
       <!--  <form name = "fileinput" id = "fileinput" style = "display:none" > 
         <input type = "file" id = "inputFile"/>
         <button onClick = "sendFile()">Send file</button>
@@ -57,6 +122,87 @@
         </div>
 
         <script type="text/javascript">
+
+            function addTask()
+            {
+                    cnt = 0;
+                    while (document.getElementById("_task" + String(cnt))) {cnt++;}
+                    document.getElementById("tasks").innerHTML += "<p><input type = 'text' id = \"_task" + String(cnt) + "\"></input>" + "<input type = 'text' id = \"_task_dur" + String(cnt) + "\"></input></p>";
+            }
+
+            function addLink()
+            {
+                    cnt = 0;
+                    while (document.getElementById("_1link" + String(cnt))) {cnt++;}
+                    document.getElementById("links").innerHTML += "<p><input type = 'text' id = '_1link" + String(cnt) + "'/>" + "<input type = 'text' id = '_2link" + String(cnt) + "'/></p>";
+            }
+
+            function addSrc()
+            {
+                    cnt = 0;
+                    while (document.getElementById("_src" + String(cnt))) {cnt++;}
+                    document.getElementById("srcs").innerHTML += "<p><input type = 'text' id = '_src" + String(cnt) + "'/>" + "<input type = 'text' id = '_src_cap" + String(cnt) + "'/></p>";
+            }
+
+            function addAss()
+            {
+                    cnt = 0;
+                    while (document.getElementById("_ass" + String(cnt))) {cnt++;}
+                    document.getElementById("asses").innerHTML += "<p><input type = 'text' id = '_ass" + String(cnt) + "'/>" +
+                    "<input type = 'text' id = '_ass_tsk" + String(cnt) + "'/>" +
+                    "<input type = 'text' id = '_ass_qua" + String(cnt) + "'/></p>";
+            }
+
+
+            function sendSimple()
+            {
+                var message = "";
+                message += "PROBLEM " + document.getElementById("problem_name").value + "\n\nTASKS\n";
+                cnt = 0; //TASKS
+                while (document.getElementById("_task" + String(cnt))) 
+                    {
+
+                        message += document.getElementById("_task" + String(cnt)).value + ' ' +
+                            document.getElementById("_task_dur" + String(cnt)).value + '\n';
+
+                        cnt++;
+                    }
+                message += "END_TASKS\n\nLINKS\n";
+                cnt = 0; //TASKS
+                while (document.getElementById("_1link" + String(cnt))) 
+                    {
+
+                        message += document.getElementById("_1link" + String(cnt)).value + ' ' +
+                            document.getElementById("_2link" + String(cnt)).value + '\n';
+
+                        cnt++;
+                    }
+                message += "END_LINKS\n\nRESOURCES\n";
+                cnt = 0; //TASKS
+                while (document.getElementById("_src" + String(cnt))) 
+                    {
+
+                        message += document.getElementById("_src" + String(cnt)).value + ' ' +
+                            document.getElementById("_src_cap" + String(cnt)).value + '\n';
+
+                        cnt++;
+                    }
+                message += "END_RESOURCES\n\nASSIGNMENTS\n";
+                cnt = 0;
+                while (document.getElementById("_ass" + String(cnt))) 
+                    {
+                        //alert(cnt);
+                        message += document.getElementById("_ass" + String(cnt)).value + ' ' +
+                            document.getElementById("_ass_tsk" + String(cnt)).value + ' ' +
+                            document.getElementById("_ass_qua" + String(cnt)).value +'\n';
+
+                        cnt++;
+                    }
+                message += "END_ASSIGNMENTS\n\nEND_PROBLEM\n";
+                console.log(message);
+                if ( websocket != null ) websocket.send( message );
+            }
+
             var debugTextArea = document.getElementById("debugTextArea");
 
             
@@ -118,7 +264,7 @@
                         }
                          message = message + '\n';
                     }
-                alert(message);
+               // alert(message);
                 if ( websocket != null ) websocket.send( message );
                // alert("Sent");
             }
@@ -149,7 +295,7 @@
 
             function sendMessage() {
                 var msg = document.getElementById("inputText1").value;
-                alert(msg);
+              //  alert(msg);
                 if ( websocket != null )
                 {
                    // document.getElementById("inputText").value = "";

@@ -48,19 +48,23 @@ void EchoServer::processTextMessage(QString message)
         qDebug() << "Message received:" << message;
  //   exit(0);
     std::string m = message.toUtf8().constData();
-    Problem* p = new Problem(m, 0);
+    Problem* p;
+    if (m[0] == 'P') { p = new Problem(m); qDebug() << message << '\n';}
+    else p = new Problem(m, 0);
     Solver* s = NULL;
     int sz = p->tasks.size();
     qDebug() << sz << '\n';
      pClient->sendTextMessage(QString::fromUtf8((std::to_string(sz) + " tasks received").c_str()));
     Heuristics* h = new SimpleHeuristics(2);
-    /*if (sz < 5) {qDebug() << "1\n"; s = new ExactSolver(p, h); }
+    if (sz < 5) {qDebug() << "1\n"; s = new ExactSolver(p, h); }
     else if (sz < 7) {qDebug() << "2\n"; s = new MixedSolver(p, h, 3, 2);}
     else if (sz < 30) {qDebug() << "3\n"; s = new MixedSolver(p, h, 1, 2);}
-    else*/ {/*qDebug() << "4\n";*/ s = new HeurSolver(p, h);}
-    float sol = s->solve();
-    qDebug() << sol << s->solution.second << '\n';
-    std::string res = "Makespan: " + std::to_string(s->solution.second) + "\n";
+    else {/*qDebug() << "4\n";*/ s = new HeurSolver(p, h);}
+    s->solve();
+    qDebug() << s->solution.second << '\n';
+    float sol = s->solution.second;
+    qDebug() << sol << sol << '\n';
+    std::string res = "Makespan: " + std::to_string(sol) + "\n";
     for (auto &i : s->solution.first) res += std::to_string(i.second.start()) + ' ';
     res+='\n';
     if (pClient) {

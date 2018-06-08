@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include <sstream>
 #include "Problem.h"
-
+#include <QDebug>
 Problem::Problem()
 {
 	name = "Name";
@@ -13,7 +13,7 @@ Problem::Problem (std::string src, float x)
    std::istringstream file (src);
    std::string line;
     std::getline(file, line);
-    std::cout << line << '\n';
+  //  std::cout << line << '\n';
     std::stringstream ss;
     ss << line;
     int ts, rs;
@@ -31,13 +31,16 @@ Problem::Problem (std::string src, float x)
     }
   //  std::map <int, std::vector<int>> prevs;
     std::map <int, std::vector<int>> nexts;
-    for (int i = 1; i <= ts; i++) //Creating tasks
+    for (int i = 0; i < ts; i++) //Creating tasks
     {
+      //  qDebug() << tasks.size() << '\n';
         std::getline(file, line);
+    //    qDebug() << QString::fromUtf8(line.c_str()) << '\n';
+      //  continue;
         ss << line;
         float d;
         ss >> d;
-        Task t = Task(std::to_string(i), d);
+        Task t = Task(std::to_string(i + 1), d);
         std::string nm = t.getName();
         this->tasks[nm] = t;
         Task* _t = &tasks[nm];
